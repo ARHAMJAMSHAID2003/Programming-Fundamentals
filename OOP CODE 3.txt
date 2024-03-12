@@ -1,0 +1,123 @@
+//Define the Book class with private members the title of the book, its code, and its price. It should also
+//contain the following public functions:
+//• void review(float grd) which grades the book with the grade grd. The review() can be called
+//multiple times for the same book. The final score is the average of the grades.
+//• a constructor that accepts as parameters the data of the book and assigns them to the corresponding
+//members of the object.
+//Add to the class any other function or member you think is needed.
+//The following test program declares an array of five objects of type Book and initializes it. It calls the
+//review() of the objects few times. Then, the program read the code of a book from user and, if the book
+//exists, the program display its score and price. If the book does not exist or it exists but has not been
+//graded, the program display a related message.
+//int main() {
+//Book books[5] = {
+//Book("The C++ Programming Language", 1, 60),
+//Book("The Mythical Man-month", 2, 40),
+//Book("The Pragmatic Programmer: Your Journey to Mastery", 3, 50),
+//Book("The Art of Computer Programming", 4, 50),
+//Book("C++ For Dummies", 5, 30)
+//};
+//books[0].review(5);
+//books[0].review(4);
+//books[1].review(4);
+//books[2].review(2);
+//books[3].review(5);
+//int code;
+//cout << "Enter code: ";
+//cin >> code;
+//for (int i = 0; i < 5; i++) {
+//if (books[i].getCode() == code) {
+//if (books[i].getScore() == 0) {
+//cout << "The book has not been graded yet" << endl;
+//} else {
+//cout << "The book has score " << books[i].getScore() << " and price " <<
+//books[i].getPrice() << endl;
+//}
+//return 0;
+//}
+//}cout << "The book does not exist" << endl;
+//return 0;
+//}
+
+
+#include <iostream>
+using namespace std;
+
+class Book {
+private:
+    string title;
+    int code;
+    int price;
+    int totalscore;
+    int count;
+
+public:
+    Book(string t, int c, int p) {
+        title = t;
+        code = c;
+        price = p;
+        totalscore = 0;
+        count = 0;
+    }
+
+    string gettitle() {
+        return title;
+    }
+
+    int getcode() {
+        return code;
+    }
+
+    int getprice() {
+        return price;
+    }
+
+    float getscore() { 
+        if (count == 0) {
+            return 0;
+        } else {
+            return static_cast<float>(totalscore) / count; 
+        }
+    }
+
+    void review(float grd) { 
+        totalscore = totalscore + grd; 
+        count++;
+    }
+};
+
+int main() {
+    Book books[5] = {
+        Book("The C++ Programming Language", 1, 60),
+        Book("The Mythical Man-month", 2, 40),
+        Book("The Pragmatic Programmer: Your Journey to Mastery", 3, 50),
+        Book("The Art of Computer Programming", 4, 50),
+        Book("C++ For Dummies", 5, 30)
+    };
+
+    books[0].review(5);
+    books[0].review(4);
+    books[1].review(4);
+    books[2].review(2);
+    books[3].review(5);
+
+    int code;
+    cout << "Enter code: ";
+    cin >> code;
+
+    for (int i = 0; i < 5; i++) {
+        if (books[i].getcode() == code) {
+            if (books[i].getscore() == 0) {
+                cout << "The book has not been graded yet" << endl;
+            } else {
+                cout << "The book has score " << books[i].getscore() << " and price " <<
+                    books[i].getprice() << endl;
+            }
+            return 0;
+        }
+    }
+
+    cout << "The book does not exist" << endl;
+    return 0;
+    
+}

@@ -1,0 +1,122 @@
+Define the WareHouse class, which represents a warehouse. The class should contain two vectors as private
+members, with the first containing the products’ codes and the second one their corresponding quantities.
+The class should contain the following functions:
+• void stock(int c , int q) which adds the code c in the codes vector only if it is not already stored
+and the quantity q in the quantities vector. If the code is already stored, the function should add
+the quantity q to the existing quantity.
+• void order(int c, int q) which corresponds to an order for the product with code c. The function
+//should check if the code is valid and if there is quantity available and, if so, subtract q from it,
+//otherwise a related message should be displayed.
+//• void show(int c) which checks if the code c is valid, and if yes it displays the available quantity for
+//the respective product, otherwise a related message.
+//• The default constructor.
+//Write a program that tests the operation of the class. Alternatively, you can use the main() function
+//below.
+//int main() {
+//WareHouse w;
+//w.stock(1, 10); // print "10 items with code 1 added"
+//w.stock(2, 20); // print "20 items with code 2 added"
+//w.stock(3, 30); // print "30 items with code 3 added"
+//w.stock(1, 5); // print "5 more items with code 1 added, total 15"
+//w.order(1, 3); // print "3 items delivered with code 1"
+//w.order(2, 25); // print "the requested quantity is not available"
+//w.order(2, 11); // print "11 items delivered with code 2"
+//w.order(4, 5); // print "Code 4 not found"
+//w.show(1); // print "12 items are stored with code 1"
+//w.show(2); // print "9 items are stored with code 2"
+//w.show(3); // print "30 items are stored with code 3"
+//w.show(4); // print "Code 4 not found"
+//return 0;
+//}
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+class  WareHouse  {
+private :
+    vector<int> codes;
+    vector<int> quantities;
+
+public:
+    WareHouse() {}  
+
+    void stock(int c, int q) {
+        bool stored = false;
+        for (int i = 0; i < codes.size(); i++) {
+            if (codes[i] == c) {
+                quantities[i] = quantities[i] + q;
+                stored = true;
+                cout << q << " more items with code " << codes[i] << " added, total " << quantities[i] << endl;
+                break;
+            }
+        }
+
+        if (!stored) {
+            codes.push_back(c);
+            quantities.push_back(q);
+            cout << q << " items with code " << c << " added" << endl;
+        }
+    }
+
+    int stock(int c) {
+        for (int i = 0; i < codes.size(); i++) {
+            if (codes[i] == c) {
+                return quantities[i];
+            }
+        }
+        return 0;  // Default value if code is not found
+    }
+
+    void order(int c, int q) {
+        bool match = false;
+        for (int i = 0; i < codes.size(); i++) {
+            if (codes[i] == c) {
+                match = true;
+                if (q <= stock(c)) {
+                    cout << q << " items delivered with code " << codes[i] << endl;
+                    quantities[i] = quantities[i] - q;
+                } else {
+                    cout << "the requested quantity is not available" << endl;
+                }
+                break;
+            }
+        }
+
+        if (!match) {
+            cout << "Code " << c << " not found" << endl;
+        }
+    }
+
+    void show(int c) {
+        bool matcher = false;
+        for (int i = 0; i < codes.size(); i++) {
+            if (codes[i] == c) {
+                matcher = true;
+                cout << quantities[i] << " items are stored with code " << codes[i] << endl;
+                break;
+            }
+        }
+        if (!matcher) {
+            cout << "Code " << c << " not found" << endl;
+        }
+    }
+};
+
+int main() {
+    WareHouse w;
+    w.stock(1, 10); // print "10 items with code 1 added"
+    w.stock(2, 20); // print "20 items with code 2 added"
+    w.stock(3, 30); // print "30 items with code 3 added"
+    w.stock(1, 5);  // print "5 more items with code 1 added, total 15"
+    w.order(1, 3);  // print "3 items delivered with code 1"
+    w.order(2, 25); // print "the requested quantity is not available"
+    w.order(2, 11); // print "11 items delivered with code 2"
+    w.order(4, 5);  // print "Code 4 not found"
+    w.show(1);      // print "12 items are stored with code 1"
+    w.show(2);      // print "9 items are stored with code 2"
+    w.show(3);      // print "30 items are stored with code 3"
+    w.show(4);      // print "Code 4 not found"
+
+    return 0;
+}

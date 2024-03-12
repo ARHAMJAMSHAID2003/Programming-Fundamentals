@@ -1,0 +1,93 @@
+//Define the class Polynomial that simulates a polynomial of the form f(x) = ax2 +bx+c. The class should
+//contain:
+//(a) The default constructor that initializes the coefficients of the polynomial, that is, a, b, and c to 1.
+//The coefficients should be private members and assume that they are integers.
+//(b) A constructor that initializes the coefficients of the polynomial with given values.
+//(c) The format() function that returns a string containing the polynomial in the form ax^2 + bx + c.
+//(d) The eval(int x) function that returns the result of evaluating the polynomial at x.
+//(e) An overloaded function of the + operator, so that additions may be performed between polynomials
+//e.g., r=p + q ). That is, the function should return a polynomial with coefficients the sum of the
+//coefficients of p and q.
+//(f) An overloaded function of the [] operator, so that we can assign new values to the coefficients of
+//the polynomial The signature of the function should be int& operator[](int index) which returns a
+//reference to the coefficient of the polynomial at the given index.
+//E.g., with the statement poly[0] = 3 the coefficient a of the poly object should become 3, while with
+//the statement poly[1] = 10 the coefficient b should become 10.
+//If the value of the index is not valid, that is, it is not 0, |1|, or |2|, the program should terminate.
+//(You can use the exit() function from <cstdlib> to terminate the program.)
+//(g) An overloaded function of the == operator, so that we can check if two polynomials are equal, that
+//is, if their respective coefficients are equal.
+//Write a program that tests the functionality of the Polynomial class.
+
+
+
+
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+
+class polynomial {
+private:
+    int a;
+    int b;
+    int c;
+
+public:
+    polynomial() : a(1), b(1), c(1) {}
+
+    polynomial(int i, int j, int k) : a(i), b(j), c(k) {}
+
+    string format() {
+        string s1 = to_string(a);
+        string s2 = to_string(b);
+        string s3 = to_string(c);
+        string result = s1 + "x^2 + " + s2 + "x + " + s3;
+        return result;
+    }
+
+    int eval(int x) {
+        return a * x * x + b * x + c;
+    }
+
+    polynomial operator+(polynomial q) {
+        polynomial r;
+        r.a = a + q.a;
+        r.b = b + q.b;
+        r.c = c + q.c;
+        return r;
+    }
+
+    int& operator[](int index) {
+        if (index == 0) {
+            return a;
+        } else if (index == 1) {
+            return b;
+        } else if (index == 2) {
+            return c;
+        } else {
+            exit(1);
+        }
+    }
+
+    bool operator==(polynomial q) {
+        return (a == q.a && b == q.b && c == q.c);
+    }
+};
+
+int main() {
+    polynomial a(4, 7, 28);
+    polynomial b(6, 8, 2);
+    polynomial c = a + b;
+
+    if (a == b) {
+        cout << "Polynomials are equal." << endl;
+    } else {
+        cout << "Polynomials are not equal." << endl;
+    }
+
+    c[2] = 3;
+    string s = c.format();
+    cout << s << endl;
+
+    
+}
