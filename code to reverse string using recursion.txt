@@ -1,0 +1,31 @@
+#include <iostream>
+# include<string>
+using namespace std;
+
+string reverse(string str)
+{
+    int len=str.length();  // Declare the variable to store the length of the stri
+
+    if (len == 0)
+    {
+        return " ";
+    }
+    else
+    {
+        
+        char ch = str[len - 1];
+        str = str.substr(1, len - 1);
+        return ch + reverse(str);
+    }
+}
+
+int main()
+{
+    string text;
+    cout << "Enter text: " << endl;
+    getline(cin, text);
+    string result = reverse(text);
+    cout << "Reversed text: " << result << endl;
+
+    return 0;
+}

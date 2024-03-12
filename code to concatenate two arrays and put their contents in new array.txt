@@ -1,0 +1,19 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int arraya[]={2,4,6};
+    int arrayb[]={1,2,3,4,5};
+    int arrayc[8];
+    for(int i=0;i<3;i++)
+    {
+        arrayc[i]=arraya[i];
+        cout<<arrayc[i]<<", ";
+    }
+    for(int j=0;j<5;j++)
+    {
+        arrayc[j]=arrayb[j];
+        cout<<arrayc[j]<<", ";
+    }
+    
+}

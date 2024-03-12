@@ -1,0 +1,15 @@
+# include<iostream>
+using namespace std;
+int main()
+{
+    string result;
+    cout<<"enter 2 characters "<<endl;
+    char ch1,ch2;
+    cin>>ch1>>ch2;
+    for (int i=ch1+1;i<ch2;i++)
+    {
+        result=result+(char)i;
+    }
+    cout<<result;
+    
+}

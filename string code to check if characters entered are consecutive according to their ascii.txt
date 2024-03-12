@@ -1,0 +1,17 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    
+    char c1, c2, c3;
+    cout << "Enter 3 characters" << endl;
+    cin>>c1;
+    cin>>c2;
+    cin>>c3;
+
+    if (((int)c1+1) == (int)c2 && ((int)c2+1) == (int)c3) {
+        cout << "Consecutive" << endl;
+    }
+
+    return 0;
+}

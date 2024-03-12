@@ -1,0 +1,66 @@
+#include <iostream>
+#include<cstdlib>
+#include<ctime>
+using namespace std;
+
+int main() {
+    int i,j;
+    int count;
+    int maxcount=0;
+    
+    const int size=5;
+    int array[size][size];
+    srand(time(0));
+    
+    for(int i=0;i<size;i++)
+    {
+        for (int j=0;j<size;j++)
+        {
+            array[i][j]=rand()%2+0;
+        }
+    }
+    for(int i=0;i<size;i++)
+    {
+        for(int j=0;j<size;j++)
+        {
+            cout<<array[i][j]<<" ";
+        }
+        cout<<endl;
+        
+    }
+    for(int i=0;i<size;i++)
+    {
+        count=0;
+        for(int j=0;j<size;j++)
+        {
+            if(array[i][j]==1)
+            {
+                count++;
+            
+                }
+            }
+            if(count>maxcount)
+            {
+                maxcount=count;
+            }
+        }
+        
+        for(int i=0;i<size;i++)
+        {
+            count=0;
+            for(int j=0;j<size;j++)
+            {
+                if(array[i][j]==1)
+                {
+                    count++;
+                }
+            }
+           if(count==maxcount)
+           {
+               cout<<"row "<<i;
+               break;
+           }
+        }
+    
+    
+}

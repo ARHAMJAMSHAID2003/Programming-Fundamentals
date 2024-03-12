@@ -1,0 +1,42 @@
+#include<iostream>
+using namespace std;
+
+int main() {
+    int j = 0, k = 0;
+    int max = 0;
+    string text;
+    char maxoccurrence = 0;
+
+    cout << "Enter text: ";
+    getline(cin, text);
+
+    int len = text.size();  // Move len calculation here
+
+    for (char ch : text) {
+        if (islower(ch)) {
+            j++;
+        } else if (isdigit(ch)) {
+            k++;
+        }
+    }
+
+    for (char dope : text) {
+        int count = 0;
+        for (char c : text) {
+            if (c == dope) {
+                count++;
+            }
+        }
+
+        if (count > max) {
+            max = count;
+            maxoccurrence = dope;
+        }
+    }
+
+    cout << "Number of lowercase letters: " << j << endl;
+    cout << "Number of digits in letters: " << k << endl;
+    cout << "Max occurrence of '" << maxoccurrence << "' " << max << " times." << endl;
+
+    return 0;
+}

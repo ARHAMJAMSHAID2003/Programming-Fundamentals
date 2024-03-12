@@ -1,0 +1,26 @@
+# include<iostream>
+using namespace std;
+
+int sum(int number)
+{
+    if(number<10)
+    {
+        return number;
+    }
+    else if(number>=10)
+    {
+        int rem =number%10;
+        number=number/10;
+        return rem+sum(number);
+    }
+    
+}
+
+int main()
+{
+    int n;
+    cout<<"enter number "<<endl;
+    cin>>n;
+    int result=sum(n);
+    cout<<"sum of digits is "<<result<<endl;
+}

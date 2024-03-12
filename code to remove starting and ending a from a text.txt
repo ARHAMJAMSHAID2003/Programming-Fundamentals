@@ -1,0 +1,32 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    string text;
+    string result;
+    
+    cout << "Enter text: ";
+    getline(cin, text);
+
+    char ch;
+    cout << "Enter character to remove: ";
+    cin >> ch;
+
+    int len = text.size();
+
+    for (int i = 0; i < len; i++) {
+        if (text[i] == ch) {
+            text[i] = '\0';  // Use single quotes for character literal
+        }
+    }
+
+    for (int i = 0; i < len; i++) {
+        
+            result = result + text[i];
+        }
+    
+
+    cout << "Result: " << result << endl;
+
+    return 0;
+}

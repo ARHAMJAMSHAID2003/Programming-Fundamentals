@@ -1,0 +1,33 @@
+#include <iostream>
+using namespace std;
+
+bool find(string text, string str) {
+    char ch;
+    int len2 = text.length();
+    int len = str.length();
+
+    if (len == 0) {
+        return true;
+    } else {
+        ch = text[0];
+        if (ch == str[0]) {
+            str = str.substr(1, len - 1);
+            text = text.substr(1, len2 - 1);
+            return find(text, str);
+        } else {
+            text = text.substr(1, len2 - 1);
+            return find(text, str);
+        }
+    }
+}
+
+int main() {
+    string shorttext, longtext;
+    cout << "Enter long text:" << endl;
+    getline(cin, longtext);
+    cout << "Enter short text:" << endl;
+    getline(cin, shorttext);
+    bool result = find(longtext, shorttext);
+    cout << (result ? "true" : "false") << endl;
+    return 0;
+}

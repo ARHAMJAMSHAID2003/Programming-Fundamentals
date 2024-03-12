@@ -1,0 +1,29 @@
+# include<iostream>
+# include<cstdlib>
+using namespace std;
+int main()
+{
+    int i;
+  double  mindiff=100.0;
+    int n =10;
+    double arraya[n];
+    cout<<"enter array values "<<endl;
+    for(int i=0;i<n;i++)
+    {
+        cin>>arraya[i];
+    }
+        if(abs(arraya[i+1]-arraya[i])<mindiff)
+        {
+            mindiff=abs(arraya[i+1]-arraya[i]);
+        }
+        for(int i=0;i<n-1;i++)
+        {
+            if(abs(arraya[i+1]-arraya[i])<mindiff)
+        {
+            mindiff=abs(arraya[i+1]-arraya[i]);
+        }
+        }
+        
+    
+    cout<<mindiff<<endl;
+}

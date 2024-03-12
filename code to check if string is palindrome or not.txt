@@ -1,0 +1,23 @@
+# include<iostream>
+using namespace std;
+int main()
+{
+    string j;
+    cout<<"enter text "<<endl;
+    cin>>j;
+    int len=j.size();
+    for(int i =0;i<len/2;i++)
+    {
+        if(j[i]!=j[len-1])
+        {
+            cout<<"it is not a palindrome number "<<endl;
+            break;
+        }
+        else
+        {
+            cout<<"palindrome number ";
+            break;
+        }
+    }
+    
+}

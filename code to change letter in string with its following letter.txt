@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    string result;
+    string a;
+    cout<<"enter string "<<endl;
+    getline(cin,a);
+    for(char ch : a)
+    {
+        if(isalpha(ch)){
+        ch++;
+        
+    }
+    else if(isdigit(ch))
+    {
+        ch;
+    }
+    result=result+ch;
+    }
+    
+    
+    cout<<result;
+
+}

@@ -1,0 +1,54 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    string smalltext;
+    string longtext;
+    cout<<"enter small text "<<endl;
+    
+    string result1;
+    string result2;
+    getline(cin,smalltext);
+    cout<<"enter long text "<<endl;
+    getline(cin,longtext);
+    int len=smalltext.length();
+    int count =0;
+    for(char ch:smalltext)
+    {
+        result1=result1+ch;
+        for(char b:longtext)
+        {
+            
+    
+            
+            if (b==ch)
+            {
+                result2=result2+b;
+                
+            
+            }
+            
+        
+            }
+            
+    }
+    if(result1==result2)
+    {
+        cout<<false;
+    }
+    else if(result1!=result2)
+    {
+        cout<<true;
+    }
+}
+    
+    
+    
+    
+    
+    
+
+
+
+
+
