@@ -1,0 +1,112 @@
+//Create a class called Date that includes three pieces of information as data members—a day (type int),
+//a month (type int) and a year (type int).
+//Your class should have a constructor with three parameters that uses the parameters to initialize the
+//three data members. For the purpose of this exercise, assume that the values provided for the year and
+//day are correct, but ensure that the month value is in the range 1–12; if it isn’t, set the month to 1.
+//Provide a set and a get function for each data member.
+//Provide a member function formatDate that return the date as string with the month, day and year
+//separated by forward slashes (/).
+//Write a test program that demonstrates class Date’s capabilities. Alternatively, you can use the main()
+//function below.
+//int main() {
+//Date d1(19, 1, 2024);
+//cout << d1.formatDate() << endl; // should print 19/1/2024
+//d1.setDay(17);
+//cout << d1.formatDate() << endl; // should print 17/1/2024
+//d1.setMonth(5);
+//cout << d1.formatDate() << endl; // should print 17/5/2024
+//Date d2(29, 13, 2024); // should set month to 1
+//cout << d2.formatDate() << endl; // should print 29/1/2024
+//return 0;
+}//
+
+#include <iostream>
+using namespace std;
+
+class Date{
+    private:
+    int day;
+    int month;
+    int year;
+    public:
+    Date(int d,int m,int y)
+    
+    {
+        day=d;
+        month=m;
+        if(m>=1 && m<=12)
+        {
+            month=m;
+        }
+        else 
+        {
+          month=1;  
+        }
+        year=y;
+    }
+    void setday(int d)
+    {
+        day=d;
+    }
+    void setmonth(int m)
+    {
+        month=m;
+        if(m>=1 && m<=12)
+        {
+            month=m;
+        }
+        else 
+        {
+            month=1;
+        }
+    }
+    void setyear(int y)
+    {
+        year=y;
+    }
+    
+    int getday(int d)
+    {
+        return day;
+    }
+     
+    int getmonth(int m)
+    {
+        return month;
+    }
+     
+    int getyear(int y)
+    {
+        return year;
+    }
+    
+    string formatDate()
+    {
+        string a1,a2,a3,result;
+        a1=to_string(day);
+        a2=to_string(month);
+        a3=to_string(year);
+        result=result+a1+"/"+a2+"/"+a3;
+        return result;
+    }
+    
+    
+    
+    
+    
+    
+    
+};
+
+    int main() {
+Date d1(19, 1, 2024);
+cout << d1.formatDate() << endl; // should print 19/1/2024
+d1.setday(17);
+cout << d1.formatDate() << endl; // should print 17/1/2024
+d1.setmonth(5);
+cout << d1.formatDate() << endl; // should print 17/5/2024
+Date d2(29, 13, 2024); // should set month to 1
+cout << d2.formatDate() << endl; // should print 29/1/2024
+return 0;
+}
+
