@@ -1,0 +1,118 @@
+#include <iostream>
+
+using namespace std;
+bool r_test(int val, int r);
+bool c_test(int val, int c);
+bool s_test(int value, int r, int c);
+    int board[9][9] = {{5, 3, 0, 0, 7, 0, 0, 0, 0},  // Sudoku board I found on the internet  
+                       {6, 0, 0, 1, 9, 5, 0, 0, 0},  // it is also a global variable     
+                       {0, 9, 8, 0, 0, 0, 0, 6, 0},  // so that all functions can access it
+                       {8, 0, 0, 0, 6, 0, 0, 0, 3},
+                       {4, 0, 0, 8, 0, 3, 0, 0, 1},  
+                       {7, 0, 0, 0, 2, 0, 0, 0, 6},
+                       {0, 6, 0, 0, 0, 0, 2, 8, 0},
+                       {0, 0, 0, 4, 1, 9, 0, 0, 5},
+                       {0, 0, 0, 0, 8, 0, 0, 7, 9}};
+    const int unchanged[9][9] = {{5, 3, 0, 0, 7, 0, 0, 0, 0},   
+                                 {6, 0, 0, 1, 9, 5, 0, 0, 0},      
+                                 {0, 9, 8, 0, 0, 0, 0, 6, 0}, // So that initial values aren't changed
+                                 {8, 0, 0, 0, 6, 0, 0, 0, 3},
+                                 {4, 0, 0, 8, 0, 3, 0, 0, 1},  
+                                 {7, 0, 0, 0, 2, 0, 0, 0, 6},
+                                 {0, 6, 0, 0, 0, 0, 2, 8, 0},
+                                 {0, 0, 0, 4, 1, 9, 0, 0, 5},
+                                 {0, 0, 0, 0, 8, 0, 0, 7, 9}};
+int main(){
+   
+    int r, c, val;  // row and column and value to enter
+    while (true){
+         // Fetch array, wanted to make a function but didn't know how to return an array
+        for(int i = 0; i < 9; i++){
+            cout<< "[\t";
+            for(int j = 0; j < 9; j++){
+                cout<< board[i][j] << ",\t";
+            }
+            cout<<"]\n\n";
+        }
+        cout<<"\nChoose a row and column( ctrl-c to exit): ";
+        cin>> r >> c;
+        if ((r>8 ||  r< 0) || (c>8 ||  c< 0)){
+            cout<<"Not a valid row or column\n";
+            continue;
+        }
+        if (unchanged[r][c]){
+            cout<<"Sorry you can't change that value\n";
+            continue;
+        }
+        cout<<"What value do you want to enter in there( ctrl-c to exit): ";
+        cin>> val;
+        if( val< 1 || val > 9){
+            cout<<"Invalid value\n";
+            continue;
+        }
+        // The following conditions aren't merged for the sake of efficiency
+        if (!r_test(val, r))
+            continue;
+        if (!c_test(val, c))
+            continue;
+        if (!s_test(val, r, c))
+            continue;
+
+        board[r][c] = val;
+        cout<<"Value changed successfully\n";
+       
+    }
+}
+
+
+
+
+
+
+bool r_test(int value, int r){
+    for(int i = 0; i< 9 ; i++){
+        if(value == board[r][i]){
+            cout<< value << " didn't pass row test\n";
+            return false;}
+        }
+    return true;
+    
+}
+
+bool c_test(int value, int c){
+    for(int i = 0; i< 9 ; i++){
+        if(value == board[i][c]){
+            cout<< value <<" didn't pass column test\n";
+            return false;}
+        }
+    return true;
+}
+
+bool s_test(int value, int r, int c){
+    int s_r = 0; // The row to start checking from
+    int s_c = 0; // the column to start checking from
+    if(r < 3)
+        s_r = 0;
+    else if( r < 6)
+        s_r = 3;
+    else if (r < 9)
+        s_r = 6;  
+
+    if(c < 3)
+        s_c = 0;
+    else if( c < 6)
+        s_c = 3;
+    else if (c < 9)
+        s_c = 6;
+
+    for(int i = s_r; i < s_r + 3; i++){
+        for(int j = s_c; j < s_c + 3; j++){
+            if(value == board[i][j]){
+                cout<< value << " didn't pass compartment test\n";
+                return false;
+            }
+            cout<< i << ' ' << j << '\n';
+        }
+    }         
+    return true;
+}
