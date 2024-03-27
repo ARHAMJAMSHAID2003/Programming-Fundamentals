@@ -1,0 +1,91 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+const int num_products = 5;
+
+class vendingmachine {
+private:
+    string productname[num_products];
+    double productcost[num_products];
+    double totalsales;
+
+public:
+    vendingmachine(string arr1[], double arr2[]) : totalsales(0) {
+        for(int i = 0; i < num_products; i++) {
+            productname[i] = arr1[i];
+            productcost[i] = arr2[i];
+        }
+    }
+
+    string getProductName(int index) {
+        if (index >= 0 && index < num_products)
+            return productname[index];
+        else
+            return "Invalid Index";
+    }
+
+    double getprices(string item) {
+        for(int i = 0; i < num_products; i++) {
+            if(productname[i] == item) {
+                return productcost[i];
+            }
+        }
+        return -1; // Return -1 if item not found
+    }
+
+    void money(string item, double amount) {
+        for(int i = 0; i < num_products; i++) {
+            if(productname[i] == item) {
+                if(amount >= productcost[i]) {
+                    cout << "Your money is accepted for item: " << item << endl;
+                    totalsales += productcost[i];
+                    double change = amount - productcost[i];
+                    if(change > 0) {
+                        cout << "Change: $" << change << endl;
+                    }
+                } else {
+                    cout << "Insufficient amount. Please insert $" << productcost[i] - amount << " more." << endl;
+                }
+            }
+        }
+    }
+
+    double Totalsales() {
+        return totalsales;
+    }
+};
+
+int main() {
+    string productname[num_products] = {"pepsi", "chips", "cookies", "chocolate", "gum"};
+    double productcost[num_products] = {1.5, 2, 5, 6, 2.5};
+
+    vendingmachine v(productname, productcost);
+
+    cout << "Welcome to the Vending Machine!" << endl;
+    cout << "Available Items:" << endl;
+    for(int i = 0; i < num_products; i++) {
+        cout << i+1 << ": " << v.getProductName(i) << endl;
+    }
+
+    int choice;
+    cout << "Enter choice: ";
+    cin >> choice;
+
+    if(choice >= 1 && choice <= num_products) {
+        string selectedItem = v.getProductName(choice - 1);
+        double price = v.getprices(selectedItem);
+        cout << "Selected item: " << selectedItem << ", Price: $" << price << endl;
+
+        double amount;
+        cout << "Insert money: $";
+        cin >> amount;
+
+        v.money(selectedItem, amount);
+        cout << "Total sales: $" << v.Totalsales() << endl;
+    } else {
+        cout << "Invalid choice." << endl;
+    }
+
+    return 0;
+}
