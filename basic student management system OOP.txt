@@ -1,0 +1,67 @@
+#include <iostream>
+# include<vector>
+using namespace std;
+
+class student{
+    private:
+    string name;
+    int age;
+    vector<string>courses;
+    public:
+    student(string n,int a,vector<string>c)
+    {
+        name=n;
+        age=a;
+        for(int i=0;i<c.size();i++)
+        {
+            courses.push_back(c[i]);
+        }
+    }
+    void addcourse(string coursename)
+    {
+    
+        
+            courses.push_back(coursename);
+        
+    
+    }
+    void removecourse( string coursename)
+    {
+        for(int i=0;i<courses.size();i++)
+        {
+            if(coursename==courses[i])
+            {
+                courses.erase(courses.begin()+i);
+            }
+        }
+    }
+    void displaycourses()
+    {
+        for(auto co: courses)
+        {
+            cout<<co<<" "<<endl;
+        }
+    }
+    void displayinfo()
+    {
+        cout<<"name:"<<name<<" "<<"age:"<<age<<endl;
+    }
+    
+    
+    
+    
+};
+int main()
+{
+    vector<string>intialcourses= {"physics","maths","biology"};
+    student s("arham",20,intialcourses);
+    s.displaycourses();
+    s.addcourse("chemistry");
+    s.removecourse("physics");
+    s.displayinfo();
+    s.displaycourses();
+    
+    
+}
+
+    
