@@ -1,0 +1,99 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+class Book {
+private:
+    string title;
+    string author;
+    string ISBN;
+
+public:
+    Book(string t, string a, string I) {
+        title = t;
+        author = a;
+        ISBN = I;
+    }
+
+    string gettitle() const {
+        return title;
+    }
+
+    string getauthor() const {
+        return author;
+    }
+
+    string getISBN() const {
+        return ISBN;
+    }
+};
+
+class Library {
+private:
+    vector<Book> books;
+
+public:
+    string addbook(const Book &book) {
+        books.push_back(book);
+        return "Book added successfully.";
+    }
+
+    void displaybooks() const {
+        cout << "Books are:" << endl;
+        for (auto book : books) {
+            cout << book.gettitle() << " " << book.getauthor() << " " << book.getISBN() << endl;
+        }
+    }
+
+    string removebook(const string &ISBN) {
+        auto it = find_if(books.begin(), books.end(), [&](const Book &book) {
+            return book.getISBN() == ISBN;
+        });
+
+        if (it != books.end()) {
+            books.erase(it);
+            return "Book removed successfully.";
+        } else {
+            return "No such book found.";
+        }
+    }
+
+    string searchbook(const string &author) {
+        auto it = find_if(books.begin(), books.end(), [&](const Book &book) {
+            return book.getauthor() == author;
+        });
+
+        if (it != books.end()) {
+            return "Book found for author " + author + ".";
+        } else {
+            return "No book found for author " + author + ".";
+        }
+    }
+
+    void displaytotalbooks() const {
+        cout << "Number of total books: " << books.size() << endl;
+    }
+};
+
+int main() {
+    Library library;
+
+    Book book1("The Great Gatsby", "F. Scott Fitzgerald", "9780743273565");
+    Book book2("To Kill a Mockingbird", "Harper Lee", "9780061120084");
+    Book book3("1984", "George Orwell", "9780451524935");
+
+    library.addbook(book1);
+    library.addbook(book2);
+    library.addbook(book3);
+
+    library.displaybooks();
+    library.displaytotalbooks();
+
+    cout << library.removebook("9780061120084")<<endl;
+    
+    cout << library.searchbook("Harper") << endl;
+
+    
+}
