@@ -1,0 +1,206 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+class Product {
+private:
+    int id;
+    string name;
+    double price;
+    int quantity;
+
+public:
+    int getId() {
+        return id;
+    }
+
+    string getName() {
+        return name;
+    }
+
+    double getPrice() {
+        return price;
+    }
+
+    int& getQuantity() {
+        return quantity;
+    }
+
+    // Constructor
+    Product(int i, string n, double p, int q) {
+        id = i;
+        name = n;
+        price = p;
+        quantity = q;
+    }
+};
+
+class User {
+private:
+    int id;
+    string name;
+
+public:
+    User(int i, string n) {
+        id = i;
+        name = n;
+    }
+
+    int getId() {
+        return id;
+    }
+
+    string getName() {
+        return name;
+    }
+};
+
+class Order {
+private:
+    int userId;
+    int productId;
+    int quantity;
+
+public:
+    Order(int u, int p, int q) {
+        userId = u;
+        productId = p;
+        quantity = q;
+    }
+
+    int getUserId() {
+        return userId;
+    }
+
+    int getProductId() {
+        return productId;
+    }
+
+    int getQuantity() {
+        return quantity;
+    }
+};
+
+class OnlineShopping {
+private:
+    vector<Product> products;
+    vector<User> users;
+    vector<Order> orders;
+
+public:
+    void addProduct(int id, string name, double price, int quantity) {
+        Product pro(id, name, price, quantity);
+        products.push_back(pro);
+    }
+
+    void removeProduct(int id) {
+        auto it = find_if(products.begin(), products.end(), [&](Product& pro) {
+            return pro.getId() == id;
+        });
+
+        if (it != products.end()) {
+            products.erase(it);
+            cout << "Product successfully erased" << endl;
+        }
+    }
+
+    void displayProducts() {
+        cout << "Displaying Products" << endl;
+        for (auto pro : products) {
+            cout << pro.getId() << " " << pro.getName() << " " << pro.getPrice() << " " << pro.getQuantity() << endl;
+        }
+    }
+
+    void searchProduct(int id) {
+        bool found = false;
+        for (auto pro : products) {
+            if (pro.getId() == id) {
+                cout << "The searched product has been found" << endl;
+                cout << pro.getId() << " " << pro.getName() << " " << pro.getPrice() << " " << pro.getQuantity() << endl;
+                found = true;
+            }
+        }
+        if (!found) {
+            cout << "Product not found" << endl;
+        }
+    }
+
+    void registerUser(int id, string name) {
+        User use(id, name);
+        users.push_back(use);
+    }
+
+    void placeOrder(int userId, int productId, int quantity) {
+        bool found = false;
+        for (auto& pro : products) {
+            if (pro.getId() == productId && pro.getQuantity() >= quantity) {
+                cout << getUserById(userId).getName() << " has ordered " << quantity << " " << pro.getName() << endl;
+                pro.getQuantity() -= quantity; 
+                Order ord(userId, productId, quantity);
+                orders.push_back(ord);
+                found = true;
+            }
+        }
+        if (!found) {
+            cout << "No matching product found in required quantity" << endl;
+        }
+    }
+
+    User getUserById(int id) {
+        for (auto& usr : users) {
+            if (usr.getId() == id) {
+                return usr;
+            }
+        }
+        return User(-1, ""); 
+    }
+
+    void displayUsers() {
+        cout << "Displaying Users" << endl;
+        for (auto use : users) {
+            cout << "ID: " << use.getId() << ", Name: " << use.getName() << endl;
+        }
+    }
+
+    void displayOrders(int userId) {
+        cout << "Displaying Orders for User ID: " << userId << endl;
+        for (auto ord : orders) {
+            if (ord.getUserId() == userId) {
+                cout << "Product ID: " << ord.getProductId() << ", Quantity: " << ord.getQuantity() << endl;
+            }
+        }
+    }
+};
+
+int main() {
+    OnlineShopping platform;
+
+    // Adding products to the platform
+    platform.addProduct(101, "Laptop", 1500.00, 10);
+    platform.addProduct(102, "Smartphone", 800.00, 20);
+    platform.addProduct(103, "Headphones", 100.00, 30);
+    platform.addProduct(104, "Tablet", 400.00, 15);
+
+    // Displaying all products
+    platform.displayProducts();
+
+    // Searching for products
+    platform.searchProduct(102); // Search by ID
+
+    // Registering users
+    platform.registerUser(1, "Alice");
+    platform.registerUser(2, "Bob");
+
+    // Placing orders
+    platform.placeOrder(1, 101, 2); // Alice orders 2 laptops
+    platform.placeOrder(2, 103, 3); // Bob orders 3 headphones
+
+    // Displaying users
+    platform.displayUsers();
+
+    // Displaying orders for a specific user
+    platform.displayOrders(1); // Display orders for Alice
+
+    return 0;
+}
