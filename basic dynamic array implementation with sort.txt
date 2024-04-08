@@ -22,4 +22,5 @@ int main() {
         cout<<"name"<<i+1<<":"<<array[i]<<endl;
         
     }
+delete[] array;
     
