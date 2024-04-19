@@ -1,0 +1,31 @@
+#include <iostream>
+#include <map>
+#include <string>
+using namespace std;
+
+int main() {
+    map<string, int> names;
+    int n;
+    cout << "Enter how many names to enter: ";
+    cin >> n;
+    cin.ignore(); 
+    names["apple"] = 0;
+    names["orange"] = 0;
+    names["banana"] = 0;
+    string str;
+
+    while (n != 0) {
+        cout << "Enter a name: ";
+        getline(cin, str);
+        if (names.find(str) != names.end()) {
+            names[str]++; 
+        } else {
+            cout << "Invalid name entered."<<endl;
+        }
+        n--;
+    }
+    for (auto iter = names.begin(); iter != names.end(); iter++) {
+        cout << iter->first << " " << iter->second << endl;
+    }
+    
+}
