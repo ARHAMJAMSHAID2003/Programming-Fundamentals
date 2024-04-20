@@ -1,0 +1,72 @@
+#include<iostream>
+#include<map>
+#include<string>
+#include<unordered_map>
+#include<algorithm>
+#include<vector>
+using namespace std;
+
+int main()
+{
+    map<string, map<string, int>> studentscores;
+    studentscores["Ali"]["Math"]=85;
+    studentscores["Ali"]["Science"]=90;
+    studentscores["Babar"]["Math"]=90;
+    studentscores["Babar"]["Science"]=85;
+    studentscores["Babar"]["History"]=80;
+    studentscores["khan"]["Science"]=95;
+    
+    cout << "How many students to be entered?"<< endl;
+    int n;
+    cin >> n;
+    cin.ignore(); 
+    
+    string name;
+    string subject;
+    int c;
+    int b;
+    
+    vector<pair<string, int>> results; 
+    
+    while(n > 0)
+    {
+        
+        cout << "Enter student's name: ";
+        getline(cin, name);
+        
+        cout << "Enter the number of subjects for " << name << ": ";
+        cin >> c;
+        cin.ignore(); 
+        
+        int sum = 0;
+        while(c > 0)
+        {
+            cout << "Enter subject name: ";
+            getline(cin, subject);
+            cout << "Enter the score for " << name << " in " << subject << ": ";
+            cin >> b;
+            cin.ignore(); 
+            
+            if(studentscores.find(name) != studentscores.end())
+            {
+                if(studentscores[name].find(subject) != studentscores[name].end())
+                {
+                    if(studentscores[name][subject] == b)
+                    {
+                        sum = sum + studentscores[name][subject];
+                    }
+                }
+            }
+            c--;
+        }
+        results.push_back(make_pair(name, sum)); 
+        n--;
+    }
+    
+    
+    cout << "Results:" << endl;
+    for(auto& result : results)
+    {
+        cout << result.first << " " << result.second << endl;
+    }
+}
