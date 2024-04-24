@@ -1,0 +1,58 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <map>
+#include <sstream>
+
+using namespace std;
+
+int main() {
+    map<string, vector<int>> unique; 
+    
+    // Initialize keywords in the map
+    unique["It"] = {};
+    unique["was"] = {};
+    unique["the"] = {};
+    unique["best"] = {};
+    unique["of"] = {};
+    unique["times"] = {};
+    unique["worst"] = {};
+    unique["age"] = {};
+    unique["wisdom"] = {};
+    unique["foolishness"] = {};
+
+    int linenumber = 1; 
+    cout<<"enter the paragraph line by line "<<endl;
+    string paragraph; 
+    
+    
+    while (linenumber <= 4 && getline(cin, paragraph)) {
+        
+        stringstream ss(paragraph);
+        string word;
+
+        
+        while (ss >> word) {
+        
+            if (unique.find(word) != unique.end()) {
+                unique[word].push_back(linenumber);
+            }
+        }
+
+        
+        if (paragraph.find(',') != string::npos) {
+            linenumber++;
+        }
+    }
+
+    
+    for (const auto& kv : unique) { 
+        cout << kv.first << ": "; 
+        if (!kv.second.empty()) {
+            for (int ln : kv.second) { 
+                cout << ln << " "; 
+            }
+        }
+        cout << endl; 
+}
+}
