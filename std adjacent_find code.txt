@@ -1,0 +1,50 @@
+# include<algorithm>
+# include<string>
+# include<iostream>
+using namespace std;
+
+
+
+
+
+int main()
+{
+    
+    cout<<"enter string "<<endl;
+    string input;
+    getline(cin,input);
+  input[0]=  toupper(input[0]);
+    auto it= adjacent_find(input.begin(),input.end(),[](char a,char b)
+    {
+        return isspace(a )&& islower(b);
+    });
+        
+    
+        
+        if(it==input.end())
+        {
+            cout<<"No word with small lower case letter found after space "<<endl;
+        }
+        else if(it!=input.end())
+        {
+            char c=toupper(*(it+1));
+            *(it + 1) = c; 
+        
+        
+        }
+        
+        
+            
+        
+        for(  it=input.begin();it!=input.end();it++)
+        {
+            cout<<*(it);
+        }
+}
+            
+        
+            
+        
+        
+            
+        
