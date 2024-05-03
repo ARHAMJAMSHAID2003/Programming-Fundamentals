@@ -1,0 +1,69 @@
+# include<iostream>
+# include<vector>
+# include<string>
+using namespace std;
+
+int main()
+{
+    cout<<"enter name1 "<<endl;
+    string a;
+    string b;
+    getline(cin,a);
+    cout<<"enter name2 "<<endl;
+    getline(cin,b);
+    int len1=a.length();
+    int len2=b.length();
+    int l1;
+    int l2;
+    int count1=0;
+    int count2=0;
+    for(char c:a)
+    
+    {
+        count1 ++;
+        if(isspace(c))
+        {
+            l1=count1;
+            break;
+            
+        }
+    }
+    for(char c:b)
+    
+    {
+        count2 ++;
+        if(isspace(c))
+        {
+            l2=count2;
+            break;
+            
+        }
+    }
+
+
+    auto lambda=[&](string &a, string &b)
+    {
+         
+     string k=a.substr(l1-1,len1-l1-1);
+     string l=b.substr(l2-1,len2-l2-1);
+     char i=k[0];
+     char j=l[0];
+     if(int(i)<int(j))
+     {
+         return true ;
+     }
+     else if(int(i)>int(j))
+     {
+         return false ;
+     }
+            
+            
+        };
+         cout<<boolalpha<<lambda(a,b);
+        
+        
+}
+
+
+    
+
