@@ -1,0 +1,33 @@
+# include<iostream>
+using namespace std;
+
+struct node{
+    int data;
+    node *next;
+};
+
+int length(node*top)
+{
+    int count =0;
+    node* current=top;
+    while(current!=nullptr) {
+        count = count + 1;
+        current = current->next;
+
+    }
+    return count;
+}
+int main() {
+    node *top = new node{5};
+    node *second = new node{8};
+    node *third = new node{4};
+    node *forth = new node{9};
+    node *fifth = new node{7};
+    top->next = second;
+    second->next = third;
+    third->next = forth;
+    forth->next = fifth;
+    cout << "the length of linked list is" << endl;
+    int result = length(top);
+    cout << result << endl;
+}
