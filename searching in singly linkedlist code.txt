@@ -1,0 +1,47 @@
+# include<iostream>
+using namespace std;
+
+struct node{
+    int data;
+    node *next;
+};
+bool findtarget(node*top,int target)
+{
+    node* current=top;
+    while(current!=nullptr)
+    {
+
+        if(current->data==target)
+        {
+            return true;
+        }
+        else if(current->data!=target)
+        {
+            current=current->next;
+
+        }
+    }
+    return false;
+}
+int main()
+{
+    node* top=new node{5};
+    node * second=new node{8};
+    node * third=new node{4};
+    top->next=second;
+    second->next=third;
+    int target=8;
+    bool found=findtarget(top,target);
+   if(found)
+   {
+       cout<<target<<" "<<"is in the linked list "<<endl;
+
+   }
+   else
+   {
+       cout<<target<<"is not found in linked list "<<endl;
+   }
+
+
+
+}
