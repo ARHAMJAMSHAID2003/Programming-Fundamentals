@@ -1,0 +1,29 @@
+# include<iostream>
+using namespace std;
+
+struct node{
+    int data;
+    node *next;
+};
+
+void print(node *top)
+{
+    node* temp=top;
+    while(temp!=nullptr)
+    {
+        cout<<temp->data;
+       temp=temp->next;
+
+
+    }
+}
+int main()
+{
+    node* top=new node{5};
+    node * second=new node{8};
+    node * third=new node{4};
+    top->next=second;
+    second->next=third;
+    print(top);
+
+}
