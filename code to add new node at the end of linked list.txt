@@ -1,0 +1,64 @@
+# include<iostream>
+using namespace std;
+
+struct node{
+    int data;
+    node *next;
+};
+
+void insertnode(node **top,int newdata)
+{
+
+
+    node *newnode=new node();
+    newnode->data=newdata;
+    node *last=*top;
+    if(top==nullptr)
+    {
+        *top=newnode;
+    }
+    else if(top!=nullptr)
+    {
+        while(last->next!=nullptr)
+        {
+            last=last->next;
+        }
+        last->next=newnode;
+    }
+
+
+
+
+}
+void print(node *top)
+{
+    node* temp=top;
+    while(temp!=nullptr)
+    {
+        cout<<temp->data<<" ";
+        temp=temp->next;
+
+
+    }
+}
+
+
+int main() {
+    node *top = new node{5};
+    node *second = new node{8};
+    node *third = new node{4};
+    node *forth = new node{9};
+    node *fifth = new node{7};
+
+    top->next = second;
+
+    second->next = third;
+    third->next = forth;
+
+    forth->next = fifth;
+    int newdata = 11;
+    insertnode(&top, newdata);
+
+    print(top);
+}
+
