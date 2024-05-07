@@ -1,0 +1,77 @@
+# include<iostream>
+using namespace std;
+
+struct node{
+    int data;
+    node *next;
+};
+
+void insertnode(node **top,int newdata,int position)
+{
+
+
+    node *newnode=new node();
+    newnode->data=newdata;
+    if(*top==nullptr || position==0)
+    {
+        newnode->next=*top;
+        *top=newnode;
+    }
+    else
+    {
+        node *current;
+        current=*top;
+        int index=0;
+        while(current!=nullptr && index!=position-1)
+        {
+            current=current->next;
+            index++;
+        }
+        if(current!=nullptr) {
+            newnode->next = current->next;
+            current->next = newnode;
+        }
+
+    }
+
+
+
+
+
+
+}
+void print(node *top)
+{
+    node* temp=top;
+    while(temp!=nullptr)
+    {
+        cout<<temp->data<<" ";
+        temp=temp->next;
+
+
+    }
+}
+
+
+int main() {
+    node *top = new node{5};
+    node *second = new node{8};
+    node *third = new node{4};
+    node *forth = new node{9};
+    node *fifth = new node{7};
+
+    top->next = second;
+
+    second->next = third;
+    third->next = forth;
+
+    forth->next = fifth;
+    int newdata = 11;
+    cout<<"enter the position for the new value to be added"<<endl;
+    int pos;
+    cin>>pos;
+    insertnode(&top, newdata,pos);
+
+    print(top);
+}
+
