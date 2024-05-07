@@ -1,0 +1,65 @@
+# include<iostream>
+using namespace std;
+
+struct node{
+    int data;
+    node *next;
+};
+
+void deletenode(node *&top)
+{
+    if(top==nullptr)
+    {
+        cout<<"list is empty "<<endl;
+    }
+    else
+    {
+        node*current=top;
+       while(current->next->next!=nullptr)
+       {
+           current=current->next;
+
+       }
+       delete current->next;
+       current->next=nullptr;
+
+
+    }
+
+
+}
+
+
+void print(node *top)
+{
+    node* temp=top;
+    while(temp!=nullptr)
+    {
+        cout<<temp->data<<" ";
+        temp=temp->next;
+
+
+    }
+}
+
+
+int main() {
+    node *top = new node{5};
+    node *second = new node{8};
+    node *third = new node{4};
+    node *forth = new node{9};
+    node *fifth = new node{7};
+
+    top->next = second;
+
+    second->next = third;
+    third->next = forth;
+
+    forth->next = fifth;
+
+    deletenode(top);
+    print(top);
+
+
+}
+
