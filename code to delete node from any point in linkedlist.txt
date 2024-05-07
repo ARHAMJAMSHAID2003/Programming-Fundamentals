@@ -1,0 +1,77 @@
+# include<iostream>
+using namespace std;
+
+struct node{
+    int data;
+    node *next;
+};
+
+void deletenode(node *&top,int pos)
+{
+    if(top==nullptr)
+    {
+        cout<<"no value present "<<endl;
+    }
+    else if(pos==0)
+    {
+        node*temp=top;
+        top=top->next;
+        delete temp;
+    }
+    else if(pos!=0)
+    {
+        int index=0;
+        node*current=top;
+        while(index!=pos-1 && current->next!=nullptr) {
+            current = current->next;
+            index++;
+        }
+        if(current->next!=nullptr ) {
+
+            node *nodetobedeleted=current->next;
+            current->next=nodetobedeleted->next;
+            delete nodetobedeleted;
+        }
+
+
+    }
+}
+
+
+
+void print(node *top)
+{
+    node* temp=top;
+    while(temp!=nullptr)
+    {
+        cout<<temp->data<<" ";
+        temp=temp->next;
+
+
+    }
+}
+
+
+int main() {
+    node *top = new node{5};
+    node *second = new node{8};
+    node *third = new node{4};
+    node *forth = new node{9};
+    node *fifth = new node{7};
+
+    top->next = second;
+
+    second->next = third;
+    third->next = forth;
+
+    forth->next = fifth;
+    cout<<"enter the position where the value gets deleted "<<endl;
+    int pos;
+    cin>>pos;
+
+    deletenode(top, pos);
+    print(top);
+
+
+}
+
