@@ -1,0 +1,52 @@
+# include<iostream>
+using namespace std;
+
+class Counter{
+private:
+    int counter;
+     static int  counting;
+public:
+    Counter(int count=0)
+    {
+         counting++;
+
+        counter=count;
+    }
+    Counter &operator ++()
+{      ++counter;
+return *this;
+}
+Counter operator ++(int )
+{
+    Counter temp=*this;
+        ++counter;
+        return temp;
+
+
+
+}
+ int getcounter() const
+{
+        return counter;
+
+
+}
+ static int getnumberofobjects()
+{
+        return counting;
+}
+
+};
+ int Counter::counting=0;
+int main()
+{
+    Counter a(5);
+
+    cout<<"current value is"<<a.getcounter()<<endl;
+    ++a;
+    cout<<"new value after prefix increment "<<a.getcounter()<<endl;
+    a++;
+    cout<<"new value after postfix increment "<<a.getcounter()<<endl;
+    cout<<"number of object created "<<a.getnumberofobjects();
+}
+
