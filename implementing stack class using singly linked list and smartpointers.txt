@@ -1,0 +1,90 @@
+#include<iostream>
+
+# include<memory>
+using namespace std;
+
+struct node{
+public:
+    int data;
+     shared_ptr<node> next;
+
+};
+
+class stack {
+private:
+    shared_ptr<node> top;
+public:
+
+    explicit stack(shared_ptr<node>head=nullptr) {
+        top=head;
+
+    }
+
+    void addvalue(int value) {
+        shared_ptr<node> newnode(new node());
+        newnode->data = value;
+
+
+        newnode->next = top;
+        top = newnode;
+
+    }
+
+    void popvalue() {
+
+
+        if (top == nullptr) {
+            cout << "stack is empty " << endl;
+
+
+        }
+        top = top->next;
+    }
+
+    void print()
+    {
+        shared_ptr<node>current;
+        current=top;
+        while(current!=nullptr)
+        {
+            cout<<current->data<<" ";
+            current = current->next;
+        }
+
+    }
+
+
+
+
+
+
+
+
+};
+int main()
+{
+    stack stack1;
+    stack1.addvalue(30);
+    stack1.addvalue(25);
+    stack1.addvalue(13);
+    stack1.addvalue(45);
+    stack1.addvalue(71);
+    stack1.popvalue();
+    
+
+    stack1.print();
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
