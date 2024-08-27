@@ -1,0 +1,139 @@
+#include <iostream>
+
+class MyResizingQueue {
+private:
+    int front;
+    int rear;
+    int* array;
+    int capacity;
+    int size;
+
+    void resize(int newCapacity) {
+        int* newArray = new int[newCapacity];
+        int j = 0;
+        for (int i = front; i <= rear; i++) {
+            newArray[j++] = array[i];
+        }
+        delete[] array;
+        array = newArray;
+        front = 0;
+        rear = size - 1;
+        capacity = newCapacity;
+    }
+
+public:
+    MyResizingQueue(int initialCapacity) : capacity(initialCapacity), front(-1), rear(-1), size(0) {
+        array = new int[initialCapacity];
+    }
+
+    bool enQueue(int value) {
+        if (isFull()) {
+            resize(2 * capacity);  // Resize to double the capacity if full
+        }
+
+        if (isEmpty()) {
+            front = rear = 0;  // First element to be enqueued
+        } else {
+            rear++;
+        }
+
+        array[rear] = value;
+        size++;
+        return true;
+    }
+
+    bool deQueue() {
+        if (isEmpty()) {
+            return false;  // Queue is empty, cannot dequeue
+        }
+
+        if (front == rear) {  // Queue will be empty after this dequeue
+            front = rear = -1;  // Reset queue
+        } else {
+            front++;
+        }
+
+        size--;
+
+        // Resize to half the capacity if the queue is one-quarter full
+        if (size > 0 && size == capacity / 4) {
+            resize(capacity / 2);
+        }
+
+        return true;
+    }
+
+    int Front() {
+        if (isEmpty()) {
+            return -1;  // Queue is empty
+        }
+        return array[front];
+    }
+
+    int Rear() {
+        if (isEmpty()) {
+            return -1;  // Queue is empty
+        }
+        return array[rear];
+    }
+
+    bool isEmpty() {
+        return size == 0;
+    }
+
+    bool isFull() {
+        return size == capacity;
+    }
+
+    int getSize() const {
+        return size;
+    }
+
+    ~MyResizingQueue() {
+        delete[] array;
+    }
+};
+
+int main() {
+    // Initialize the queue with an initial capacity of 4
+    MyResizingQueue* queue = new MyResizingQueue(4);
+
+    // Enqueue elements
+    queue->enQueue(10);
+    queue->enQueue(20);
+    queue->enQueue(30);
+    queue->enQueue(40);
+
+    std::cout << "Front element is: " << queue->Front() << std::endl;
+    std::cout << "Rear element is: " << queue->Rear() << std::endl;
+    std::cout << "Queue size is: " << queue->getSize() << std::endl;
+
+    // Enqueue one more element, triggering resizing
+    queue->enQueue(50);
+    std::cout << "After enqueueing 50:" << std::endl;
+    std::cout << "Front element is: " << queue->Front() << std::endl;
+    std::cout << "Rear element is: " << queue->Rear() << std::endl;
+    std::cout << "Queue size is: " << queue->getSize() << std::endl;
+
+    // Dequeue two elements
+    queue->deQueue();
+    queue->deQueue();
+
+    std::cout << "After two dequeues:" << std::endl;
+    std::cout << "Front element is: " << queue->Front() << std::endl;
+    std::cout << "Rear element is: " << queue->Rear() << std::endl;
+    std::cout << "Queue size is: " << queue->getSize() << std::endl;
+
+    // Dequeue two more elements, possibly triggering downsize
+    queue->deQueue();
+    queue->deQueue();
+
+    std::cout << "After two more dequeues:" << std::endl;
+    std::cout << "Front element is: " << queue->Front() << std::endl;
+    std::cout << "Rear element is: " << queue->Rear() << std::endl;
+    std::cout << "Queue size is: " << queue->getSize() << std::endl;
+
+    // Clean up
+    delete queue;
+    return 0;
+}
