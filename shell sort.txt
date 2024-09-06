@@ -1,0 +1,48 @@
+#include<iostream>
+using namespace std;
+
+void shellsort(int array[], int size)
+{
+    int gap = size / 2;
+    while (gap != 1)
+    {
+        int i = 0;
+        int j = gap;
+        while (j < size)
+        {
+            if (array[i] > array[j])
+            {
+                swap(array[i], array[j]);
+            }
+            i++;
+            j++;
+        }
+
+        gap = gap / 2;
+    }
+    if (gap == 1)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            for (int j = size - 1; j >= 0; j--)
+            {
+                if (array[j - 1] > array[j])
+                {
+                    swap(array[j - 1], array[j]);
+                }
+            }
+        }
+    }
+}
+
+int main()
+{
+    int array[] = {23, 29, 15, 19, 31, 7, 9, 5, 2};
+    int size = sizeof(array) / sizeof(array[0]);
+    shellsort(array, size);
+    for (int i = 0; i < size; i++)
+    {
+        cout << array[i] << " ";
+    }
+    
+}
