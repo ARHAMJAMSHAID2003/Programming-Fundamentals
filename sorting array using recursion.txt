@@ -1,0 +1,26 @@
+#include<iostream>
+using namespace std;
+
+bool issorted(int arr[], int size) {
+    if (size == 0 || size == 1) {
+        return true;
+    } else if (arr[0] > arr[1]) {
+        return false;
+    } else {
+        return issorted(arr + 1, size - 1);
+    }
+}
+
+int main() {
+    int sizeofarr = 13;
+    int arr[13] = {2, 11, 10, 6, 5, 43, 21, 78, 9, 47, 23, 12, 4};
+
+    // Pass sizeofarr instead of an undefined 'size'
+    bool result = issorted(arr, sizeofarr);
+
+    if (result) {
+        cout << "The array is sorted." << endl;
+    } else {
+        cout << "The array is not sorted." << endl;
+    }
+}
