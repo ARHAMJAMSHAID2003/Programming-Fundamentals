@@ -1,0 +1,29 @@
+#include<iostream>
+using namespace std;
+
+int sumofarray(int arr[], int size) {
+
+
+   if  (size==1)
+    {
+        return arr[0];
+    }
+   else
+   {
+       return arr[0]+sumofarray(arr+1,size-1);
+
+
+   }
+
+}
+
+int main() {
+    int sizeofarr = 3;
+    int arr[3] = {2,3,7, };
+
+    
+    int result = sumofarray(arr, sizeofarr);
+    cout<<"sum  is "<<result;
+
+
+}
