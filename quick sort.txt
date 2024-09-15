@@ -1,0 +1,86 @@
+# include<iostream>
+using namespace std;
+
+int partition(int array[],int s,int e)
+{
+    int partitionval=array[s];
+    int count=0;
+    for(int i=s+1;i<=e;i++)
+    {
+        if(array[i]<array[s])
+        {
+            count++;
+        }
+
+    }
+    int pivotposition=s+count;
+    swap(array[pivotposition],array[s]);
+
+    int i=s;
+    int j=e-1;
+
+    while(i<pivotposition && j>pivotposition)
+    {
+        while(array[i]<partitionval)
+        {
+            i++;
+        }
+        while(array[j]>partitionval)
+        {
+            j--;
+        }
+
+        if(i<pivotposition && j>pivotposition)
+        {
+            swap(array[i++],array[j--]);
+        }
+
+
+    }
+
+    return pivotposition;
+
+
+
+}
+
+
+
+
+
+void quicksort(int array[],int s,int e) {
+    if (s >= e) {
+        return;
+    }
+
+
+    int p = partition(array, s, e);
+
+    //to sort left side of partition
+    quicksort(array, s, p - 1);
+    //to sort right side of partition
+    quicksort(array, p + 1, e);
+}
+
+
+
+
+
+
+
+
+
+
+
+int main()
+{
+    int end=7;
+    int array[]={3,7,6,4,2,1,8};
+
+    quicksort(array,0,end-1);
+
+    for(int i=0;i<end-1;i++)
+    {
+        cout<<array[i] <<" ";
+    }
+}
