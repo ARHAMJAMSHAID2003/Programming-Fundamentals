@@ -1,0 +1,63 @@
+#include<iostream>
+using namespace std;
+
+class heap{
+    
+
+    
+public:
+    int sizeofarray;
+    int array[100];
+    heap()
+    {
+         sizeofarray=0;
+        array[0]=-1;
+    }
+    void insert(int value)
+    {
+        sizeofarray++;
+        int index=sizeofarray;
+        
+        array[index]=value;
+        while(index>1)
+        {
+            int parent=index/2;
+            if(array[parent]<array[index])
+            {
+                swap(array[parent],array[index]);
+                index=parent;
+            }
+            else
+            {
+                break;
+            }
+
+
+            
+        }
+        
+    }
+
+    void print()
+    {
+
+        for(int i=1;i<=sizeofarray;i++)
+        {
+            cout<<array[i]<<" ";
+        }
+    }
+
+    
+    
+};
+
+int main()
+{
+    heap h;
+    h.insert(50);
+    h.insert(55);
+    h.insert(53);
+    h.insert(52);
+    h.insert(54);
+    h.print();
+}
