@@ -1,0 +1,65 @@
+/*
+ * Given a sorted array a[] of n integers and an integer x,
+ * the task is to determine whether x appears in the array 
+ * strictly more than n/4 times. 
+ *
+ * Example:
+ * For the array: 
+ * 1 1 1 2 2 2 2 2 2 4 4 6 6 6 6 6
+ *
+ * The output should be:
+ * - "yes" for x = 2 (appears 6 times > 16/4 = 4)
+ * - "yes" for x = 6 (appears 5 times > 16/4 = 4)
+ * - "no" for any other integer x
+ */
+
+#include <iostream>
+#include <unordered_map>
+using namespace std;
+
+int main() {
+    int arraysize = 16; 
+    int array[] = {1, 1, 1, 2, 2, 2, 2, 2, 2, 4, 4, 6, 6, 6, 6, 6}; 
+    int limit = arraysize / 4; 
+    int value; 
+    cout << "Enter the value from the array: "; 
+    cin >> value; 
+
+    unordered_map<int, int> count; 
+    int left = 0; 
+    int right = arraysize - 1; 
+
+    while (left <= right) {
+        int middle = (left + right) / 2; 
+        if (array[middle] == value) {
+            count[value] += 1; 
+            int temp = middle - 1;
+            while (temp >= 0 && array[temp] == value) {
+                count[value] += 1; 
+                temp--; 
+            }
+            temp = middle + 1;
+            while (temp < arraysize && array[temp] == value) {
+                count[value]++; 
+                temp++; 
+            }
+            break; 
+        } 
+        else if (array[middle] < value) {
+            left = middle + 1; 
+        } 
+        else {
+            right = middle - 1; 
+        }
+    }
+
+    for (auto iter : count) {
+        if (iter.second > limit) {
+            cout << "Yes for value = " << iter.first << endl; 
+        } else {
+            cout << "No" << endl; 
+        }
+    }
+
+    return 0; 
+}
