@@ -1,0 +1,122 @@
+#include<iostream>
+using namespace std;
+
+class heap {
+public:
+    int sizeofarray;
+    int array[100];
+
+    heap() {
+        sizeofarray = 0;
+        array[0] = -1;
+    }
+
+    void insert(int value) {
+        sizeofarray++;
+        int index = sizeofarray;
+
+        array[index] = value;
+
+        // Adjust the position of the newly inserted value (heapify-up)
+        while (index > 1) {
+            int parent = index / 2;
+            if (array[parent] < array[index]) {
+                swap(array[parent], array[index]);
+                index = parent;  // Move index up to the parent's position
+            } else {
+                break;  // If parent is larger, we are done
+            }
+        }
+    }
+
+    void deleteheap() {
+        if (sizeofarray == 0) {
+            return;
+        }
+        swap(array[1], array[sizeofarray]);
+        sizeofarray--;
+        int i = 1;
+        while (i <= sizeofarray) {
+            int left = 2 * i;
+            int right = 2 * i + 1;
+            if (left <= sizeofarray && array[left] > array[i]) {
+                swap(array[left], array[i]);
+                i = left;
+            } else if (right <= sizeofarray && array[right] > array[i]) {
+                swap(array[right], array[i]);
+                i = right;
+            } else {
+                return;
+            }
+        }
+    }
+
+    void heapify(int array[], int i, int n) {
+        int largest = i;
+
+        int left = 2 * i;
+        int right = 2 * i + 1;
+
+        if (left <= n && array[left] > array[largest]) {
+            largest = left;
+        }
+
+        if (right <= n && array[right] > array[largest]) {
+            largest = right;
+        }
+
+        if (largest != i) {
+            swap(array[i], array[largest]);
+            heapify(array, largest, n);  // Recursively heapify the affected subtree
+        }
+    }
+    void heapsort(int arr[],int n)
+{
+        int t=n;
+        while(t>1) {
+            swap(arr[t],arr[1]);
+            t--;
+            heapify(arr,1,t);
+        }
+
+
+
+
+}
+    void print() {
+        for (int i = 1; i <= sizeofarray; i++) {
+            cout << array[i] << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    heap h;
+    h.insert(50);
+    h.insert(55);
+    h.insert(53);
+    h.insert(52);
+    h.insert(54);
+    // h.print();
+
+    int n = 5;
+    int arr[6] = { -1, 54, 53, 55, 52, 50 };  // Input array (first element -1 is just a placeholder)
+
+    // Perform heapify for each non-leaf node in reverse order (from n/2 to 1)
+    for (int i = n / 2; i > 0; i--) {
+        h.heapify(arr, i, n);
+    }
+
+    // Print the heapified array
+    for (int j = 1; j <= n; j++) {
+        cout << arr[j] << " ";
+    }cout<<endl;
+    h.heapsort(arr,n);
+//printing sorted heap
+    for (int j = 1; j <= n; j++) {
+        cout << arr[j] << " ";
+    }
+
+    return 0;
+}
